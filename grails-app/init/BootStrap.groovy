@@ -21,8 +21,10 @@ class BootStrap {
 	MoleculeTranslator mt = new MoleculeTranslator()
 	for(int i = 0; i<resources.size(); i++){
 		println "Resolving resource " + resources[i].getFilename()
-		Molecule molecule = mt.moleculeTranslator(reader.read(resources[i]))
-		molecule.save()
+		List<Molecule> molecules = mt.moleculeTranslator(reader.read(resources[i]))
+		for(Molecule m:molecules){
+			m.save()
+		}
 	}
 		
     }

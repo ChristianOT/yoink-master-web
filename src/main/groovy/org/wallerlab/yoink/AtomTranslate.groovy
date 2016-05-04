@@ -19,6 +19,9 @@ class AtomTranslate {
 				//System.out.println(cx + " " + cy + " " + cz);
 				String element = dt.getAtomSiteCategory().getAtomSite().get(i).getTypeSymbol();
 				String index = dt.getAtomSiteCategory().getAtomSite().get(i).getId();
+				String chain = dt.getAtomSiteCategory().getAtomSite().get(i).getLabelAsymId();
+				String compId = dt.getAtomSiteCategory().getAtomSite().get(i).getLabelCompId();
+				String groupPDBx = dt.getAtomSiteCategory().getAtomSite().get(i).getGroupPDB().getValue().getChars().toString();
 				//##################################################################################################################//
 				Atom atom = new Atom();
 				atom.x = cx;
@@ -26,10 +29,12 @@ class AtomTranslate {
 				atom.z = cz;
 				atom.element = element;
 				atom.index = index;
+				atom.chain = chain;
+				atom.labelCompId = compId;
+				atom.groupPDBx = groupPDBx;
 				//##################################################################################################################//
 				//println atom;
 				atoms.add(atom);
-				println (atoms[i].getIndex()+ " " + atom.getIndex())
 			}
 		//}
 		return atoms;
