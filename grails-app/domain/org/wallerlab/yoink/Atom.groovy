@@ -2,18 +2,20 @@ package org.wallerlab.yoink
 
 class Atom {
 
-    Double x
+    String index
+	String element
+	
+	Double x
     Double y
     Double z
 
-    String element
-	String index
-
     static constraints = {
+		index (blank:false);
+		element (blank:false);
     }
 
 	@Override
 	public String toString() {
-		return "Atom [element=" + element +", x=" + x + ", y=" + y + ", z=" + z +  ", index=" + index + "]";
+		return "Atom [index=" + index + ", element=" + element +", x=" + x + ", y=" + y + ", z=" + z + "]";
 	}	
 }

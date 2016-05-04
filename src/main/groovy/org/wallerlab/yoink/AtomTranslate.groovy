@@ -27,8 +27,9 @@ class AtomTranslate {
 				atom.element = element;
 				atom.index = index;
 				//##################################################################################################################//
-				println atom;
+				//println atom;
 				atoms.add(atom);
+				println (atoms[i].getIndex()+ " " + atom.getIndex())
 			}
 		//}
 		return atoms;

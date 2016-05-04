@@ -4,14 +4,11 @@ import org.wallerlab.yoink.core.pdbml.generated.DatablockType
 
 class MoleculeTranslator {
 
-	public List<Molecule> moleculeTranslator(List<Atom> atoms){
-		List<Molecule> molecules = new ArrayList<Molecule>();
-		
-		
-		
-		
-		return molecules;
-
-		
+	AtomTranslate at = new AtomTranslate()
+	//Simple moleculeTranslator
+	public Molecule moleculeTranslator(DatablockType item){
+		Molecule molecule = new Molecule(atoms:at.atomTranslator(item));
+		molecule.fileName = item.getDatablockName();
+		return molecule;
 	}
 }
