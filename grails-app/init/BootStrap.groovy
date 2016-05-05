@@ -10,14 +10,11 @@ import org.wallerlab.yoink.core.pdbml.generated.DatablockType
 class BootStrap {
 
     def init = { servletContext ->	
-	
 	//import from file
-	
 	PathMatchingResourcePatternResolver pathMatchinResolver = new PathMatchingResourcePatternResolver();
 	Resource[] resources =  pathMatchinResolver.getResources("file:./grails-app/assets/*.xml");
 	
 	PdbmlFileReader reader = new PdbmlFileReader()
-	//AtomTranslate translator = new AtomTranslate()
 	MoleculeTranslator mt = new MoleculeTranslator()
 	for(int i = 0; i<resources.size(); i++){
 		println "Resolving resource " + resources[i].getFilename()

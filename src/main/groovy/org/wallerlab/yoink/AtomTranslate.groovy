@@ -19,7 +19,7 @@ class AtomTranslate {
 				//System.out.println(cx + " " + cy + " " + cz);
 				String element = dt.getAtomSiteCategory().getAtomSite().get(i).getTypeSymbol();
 				String index = dt.getAtomSiteCategory().getAtomSite().get(i).getId();
-				String chain = dt.getAtomSiteCategory().getAtomSite().get(i).getLabelAsymId();
+				String chain = dt.getAtomSiteCategory().getAtomSite().get(i).getAuthAsymId();
 				String compId = dt.getAtomSiteCategory().getAtomSite().get(i).getLabelCompId();
 				String groupPDBx = dt.getAtomSiteCategory().getAtomSite().get(i).getGroupPDB().getValue().getChars().toString();
 				//##################################################################################################################//

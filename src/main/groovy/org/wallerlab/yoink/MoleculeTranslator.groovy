@@ -4,29 +4,55 @@ import org.wallerlab.yoink.core.pdbml.generated.DatablockType
 
 class MoleculeTranslator {
 
-	AtomTranslate at = new AtomTranslate()
-	//Simple moleculeTranslator
+	Integer waterCounter = 0;
+	AtomTranslate at = new AtomTranslate();
+
 	public List<Molecule> moleculeTranslator(DatablockType item){
 		List<Atom> atoms = at.atomTranslator(item);
 		List<Molecule> molecules = new ArrayList<Molecule>();
-		Molecule mole1 = new Molecule();
-		mole1.setFileName("ATOM");
-		Molecule mole2 = new Molecule();
-		mole2.setFileName("HETATOM");
-		Molecule mole3 = new Molecule();
-		mole3.setFileName("OTHER");
-		for(int i = 0; i<atoms.size();++i){
+		Molecule molecule = new Molecule();
+		for(int i = 0; i<atoms.size();i++){
+			/*
+			 * Check GroupPDBx
+			 */
 			if (atoms[i].getGroupPDBx().matches("ATOM")==true){
-				mole1.addToAtoms(atoms[i])
-			}else if (atoms[i].getGroupPDBx().matches("HETATOM")==true){
-				mole2.addToAtoms(atoms[i]);
+				molecule.setFileName(item.getDatablockName() + ": ATOM");
+				int j = i;
+				while(atoms[j].getGroupPDBx()==atoms[i].getGroupPDBx()){
+					molecule.addToAtoms(atoms[j]);
+					molecule.atomCount++;
+					j++;
+				}
+				i = j-1;
+				molecules.add(molecule);
+				println "Number of Proteinatoms:" + molecule.atomCount
 			}else{
-				mole3.addToAtoms(atoms[i])
+			
+			/*
+			 * Check LabelCompId
+			 */
+				if(atoms[i].getLabelCompId().matches("HOH")==true){
+					Molecule water = new Molecule();
+					water.addToAtoms(atoms[i]);
+					water.setFileName(item.getDatablockName() + ": H2O");
+					molecules.add(water);
+					waterCounter++;
+				} else{
+					Molecule mole = new Molecule()
+					mole.setFileName(item.getDatablockName()+ " " + atoms[i].getLabelCompId());
+					int j = i;
+					while(atoms[j].getLabelCompId()==atoms[i].getLabelCompId()){
+						mole.addToAtoms(atoms[j]);
+						mole.atomCount++;
+						j++;
+					}
+					i = j-1;
+					molecules.add(mole);
+					println "Number of non-Proteinatoms:" + mole.atomCount
+				}
 			}
 		}
-		if (mole1.hasMany.size()!=0) molecules.add(mole1);
-		if (mole2.hasMany.size()!=0) molecules.add(mole2);
-		if (mole3.hasMany.size()!=0) molecules.add(mole3);
+		println "Number of Watermolecules: " + waterCounter
 		return molecules;
 	}
 }
