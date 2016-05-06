@@ -2,26 +2,26 @@
 <html>
     <head>
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'molecularSystemTranslator.label', default: 'MolecularSystemTranslator')}" />
+        <g:set var="entityName" value="${message(code: 'molecularSystem.label', default: 'MolecularSystem')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
     <body>
-        <a href="#list-molecularSystemTranslator" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+        <a href="#list-molecularSystem" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
         <div class="nav" role="navigation">
             <ul>
                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
                 <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
             </ul>
         </div>
-        <div id="list-molecularSystemTranslator" class="content scaffold-list" role="main">
+        <div id="list-molecularSystem" class="content scaffold-list" role="main">
             <h1><g:message code="default.list.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${molecularSystemTranslatorList}" />
+            <f:table collection="${molecularSystemList}" />
 
             <div class="pagination">
-                <g:paginate total="${molecularSystemTranslatorCount ?: 0}" />
+                <g:paginate total="${molecularSystemCount ?: 0}" />
             </div>
         </div>
     </body>

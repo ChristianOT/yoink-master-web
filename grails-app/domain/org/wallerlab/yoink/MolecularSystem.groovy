@@ -6,6 +6,13 @@ class MolecularSystem {
 	
 	static hasMany = [molecules:Molecule]
 
-    static constraints = {
+	static constraints = {
+		
+		nameOfSystem (blank:false)
     }
+	
+	@Override
+	public String toString() {
+		return "MolecularSystem [nameOfSystem=" + nameOfSystem + "]";
+	}
 }

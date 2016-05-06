@@ -6,9 +6,9 @@ class MoleculeTranslator {
 
 	Integer solventCounter = 0;
 	Integer singleAtomCounter = 0;
-	AtomTranslator at = new AtomTranslator();
 
 	public List<Molecule> translateToMolecule(DatablockType item){
+		AtomTranslator at = new AtomTranslator();
 		List<Atom> atoms = at.translateToAtom(item);
 		List<Molecule> molecules = new ArrayList<Molecule>();
 		//start for-loop
@@ -88,7 +88,7 @@ class MoleculeTranslator {
 					}
 					i = j-1;
 					molecules.add(mole);
-					println ("Number of non-Proteinatoms:" + mole.atomCount);
+					println ("Number of Atoms in " + mole.getFileName() + "-Molecule:" + mole.atomCount);
 				}
 				//----------------------------------------------------------------------------------------------------------
 			}

@@ -3,9 +3,9 @@ package org.wallerlab.yoink
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(MolecularSystemTranslatorController)
+@TestFor(MolecularSystemController)
 @Mock(MolecularSystem)
-class MolecularSystemTranslatorControllerSpec extends Specification {
+class MolecularSystemControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -21,8 +21,8 @@ class MolecularSystemTranslatorControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.molecularSystemTranslatorList
-            model.molecularSystemTranslatorCount == 0
+            !model.molecularSystemList
+            model.molecularSystemCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -30,7 +30,7 @@ class MolecularSystemTranslatorControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.molecularSystemTranslator!= null
+            model.molecularSystem!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -38,23 +38,23 @@ class MolecularSystemTranslatorControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
             request.method = 'POST'
-            def molecularSystemTranslator = new MolecularSystem()
-            molecularSystemTranslator.validate()
-            controller.save(molecularSystemTranslator)
+            def molecularSystem = new MolecularSystem()
+            molecularSystem.validate()
+            controller.save(molecularSystem)
 
         then:"The create view is rendered again with the correct model"
-            model.molecularSystemTranslator!= null
+            model.molecularSystem!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            molecularSystemTranslator = new MolecularSystem(params)
+            molecularSystem = new MolecularSystem(params)
 
-            controller.save(molecularSystemTranslator)
+            controller.save(molecularSystem)
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/molecularSystemTranslator/show/1'
+            response.redirectedUrl == '/molecularSystem/show/1'
             controller.flash.message != null
             MolecularSystem.count() == 1
     }
@@ -68,11 +68,11 @@ class MolecularSystemTranslatorControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def molecularSystemTranslator = new MolecularSystem(params)
-            controller.show(molecularSystemTranslator)
+            def molecularSystem = new MolecularSystem(params)
+            controller.show(molecularSystem)
 
         then:"A model is populated containing the domain instance"
-            model.molecularSystemTranslator == molecularSystemTranslator
+            model.molecularSystem == molecularSystem
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -84,11 +84,11 @@ class MolecularSystemTranslatorControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def molecularSystemTranslator = new MolecularSystem(params)
-            controller.edit(molecularSystemTranslator)
+            def molecularSystem = new MolecularSystem(params)
+            controller.edit(molecularSystem)
 
         then:"A model is populated containing the domain instance"
-            model.molecularSystemTranslator == molecularSystemTranslator
+            model.molecularSystem == molecularSystem
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -98,28 +98,28 @@ class MolecularSystemTranslatorControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            response.redirectedUrl == '/molecularSystemTranslator/index'
+            response.redirectedUrl == '/molecularSystem/index'
             flash.message != null
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def molecularSystemTranslator = new MolecularSystem()
-            molecularSystemTranslator.validate()
-            controller.update(molecularSystemTranslator)
+            def molecularSystem = new MolecularSystem()
+            molecularSystem.validate()
+            controller.update(molecularSystem)
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.molecularSystemTranslator == molecularSystemTranslator
+            model.molecularSystem == molecularSystem
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            molecularSystemTranslator = new MolecularSystem(params).save(flush: true)
-            controller.update(molecularSystemTranslator)
+            molecularSystem = new MolecularSystem(params).save(flush: true)
+            controller.update(molecularSystem)
 
         then:"A redirect is issued to the show action"
-            molecularSystemTranslator != null
-            response.redirectedUrl == "/molecularSystemTranslator/show/$molecularSystemTranslator.id"
+            molecularSystem != null
+            response.redirectedUrl == "/molecularSystem/show/$molecularSystem.id"
             flash.message != null
     }
 
@@ -130,23 +130,23 @@ class MolecularSystemTranslatorControllerSpec extends Specification {
             controller.delete(null)
 
         then:"A 404 is returned"
-            response.redirectedUrl == '/molecularSystemTranslator/index'
+            response.redirectedUrl == '/molecularSystem/index'
             flash.message != null
 
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def molecularSystemTranslator = new MolecularSystem(params).save(flush: true)
+            def molecularSystem = new MolecularSystem(params).save(flush: true)
 
         then:"It exists"
             MolecularSystem.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(molecularSystemTranslator)
+            controller.delete(molecularSystem)
 
         then:"The instance is deleted"
             MolecularSystem.count() == 0
-            response.redirectedUrl == '/molecularSystemTranslator/index'
+            response.redirectedUrl == '/molecularSystem/index'
             flash.message != null
     }
 }
