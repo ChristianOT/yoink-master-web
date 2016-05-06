@@ -1,7 +1,7 @@
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.wallerlab.yoink.Atom
-import org.wallerlab.yoink.AtomTranslate;
+import org.wallerlab.yoink.AtomTranslator;
 import org.wallerlab.yoink.Molecule
 import org.wallerlab.yoink.MoleculeTranslator;
 import org.wallerlab.yoink.PdbmlFileReader;
@@ -18,7 +18,7 @@ class BootStrap {
 	MoleculeTranslator mt = new MoleculeTranslator()
 	for(int i = 0; i<resources.size(); i++){
 		println "Resolving resource " + resources[i].getFilename()
-		List<Molecule> molecules = mt.moleculeTranslator(reader.read(resources[i]))
+		List<Molecule> molecules = mt.translateToMolecule(reader.read(resources[i]))
 		for(Molecule m:molecules){
 			m.save()
 		}

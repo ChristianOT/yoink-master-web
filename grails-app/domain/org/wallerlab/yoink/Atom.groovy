@@ -18,11 +18,15 @@ class Atom {
 		element (blank:false);
 		groupPDBx (blank:false);
 		chain (blank:false);
-		labelCompId (blank:false)
+		labelCompId (blank:false);
+		x (blank:false);
+		y (blank:false);
+		z (blank:false);
     }
 
 	@Override
 	public String toString() {
-		return "Atom [index=" + index + ", element=" + element + ", groupPDBx=" + groupPDBx + ", chain=" + chain + ", compId=" + labelCompId + ", x=" + x + ", y=" + y + ", z=" + z + "]";
+		return "Atom [index=" + index + ", element=" + element + ", groupPDBx=" + groupPDBx + ", chain=" + chain
+		        + ", labelCompId=" + labelCompId + ", x=" + x + ", y=" + y + ", z=" + z + "]";
 	}	
 }

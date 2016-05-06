@@ -3,9 +3,9 @@ package org.wallerlab.yoink
 import org.wallerlab.yoink.Atom
 import org.wallerlab.yoink.core.pdbml.generated.DatablockType;
 
-class AtomTranslate {
+class AtomTranslator {
 
-	private List<Atom> atomTranslator(DatablockType item) {
+	private List<Atom> translateToAtom(DatablockType item) {
 		List<Atom> atoms = new ArrayList<Atom>();
 		//for(int j = 0;j<items.size();j++){
 			System.out.println("number of Atoms: " + item.getAtomSiteCategory().getAtomSite().size());

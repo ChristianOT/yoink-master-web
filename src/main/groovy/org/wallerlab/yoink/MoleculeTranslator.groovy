@@ -4,55 +4,100 @@ import org.wallerlab.yoink.core.pdbml.generated.DatablockType
 
 class MoleculeTranslator {
 
-	Integer waterCounter = 0;
-	AtomTranslate at = new AtomTranslate();
+	Integer solventCounter = 0;
+	Integer singleAtomCounter = 0;
+	AtomTranslator at = new AtomTranslator();
 
-	public List<Molecule> moleculeTranslator(DatablockType item){
-		List<Atom> atoms = at.atomTranslator(item);
+	public List<Molecule> translateToMolecule(DatablockType item){
+		List<Atom> atoms = at.translateToAtom(item);
 		List<Molecule> molecules = new ArrayList<Molecule>();
-		Molecule molecule = new Molecule();
+		//start for-loop
 		for(int i = 0; i<atoms.size();i++){
 			/*
 			 * Check GroupPDBx
 			 */
+			//############################################################################################################
 			if (atoms[i].getGroupPDBx().matches("ATOM")==true){
-				molecule.setFileName(item.getDatablockName() + ": ATOM");
-				int j = i;
-				while(atoms[j].getGroupPDBx()==atoms[i].getGroupPDBx()){
-					molecule.addToAtoms(atoms[j]);
-					molecule.atomCount++;
-					j++;
+				/*
+				 * Check Chain
+				 */
+				//*********************************************************************************************************
+				if (atoms[i].getChain()==atoms[0].getChain()){
+					Molecule molecule =  new Molecule();
+					molecule.setFileName(item.getDatablockName() + ": ATOM, Chain: " + atoms[i].getChain());
+					int j = i;
+					while(atoms[j].getChain()==atoms[i].getChain()){
+						molecule.addToAtoms(atoms[j]);
+						molecule.atomCount++;
+						j++;
+						if(atoms[j]==null){
+							break;
+						}
+					}
+					i = j-1;
+					molecules.add(molecule);
+					println ("Number of Proteinatoms in Chain "+ atoms[i].getChain() +" :" + molecule.atomCount);
+				}else{
+					Molecule molecule = new Molecule();
+					molecule.setFileName(item.getDatablockName() + ": ATOM, Chain: " + atoms[i].getChain());
+					int j = i;
+					while(atoms[j].getChain()==atoms[i].getChain()){
+						molecule.addToAtoms(atoms[j]);
+						molecule.atomCount++;
+						j++;
+						if(atoms[j]==null){
+							break;
+						}
+					}
+					i = j-1;
+					molecules.add(molecule);
+					println ("Number of Proteinatoms in Chain "+ atoms[i].getChain() +" :" + molecule.atomCount);
 				}
-				i = j-1;
-				molecules.add(molecule);
-				println "Number of Proteinatoms:" + molecule.atomCount
+				//*********************************************************************************************************
+				 
 			}else{
-			
-			/*
-			 * Check LabelCompId
-			 */
+				/*
+				 * Check LabelCompId
+				 */
+			    //----------------------------------------------------------------------------------------------------------
 				if(atoms[i].getLabelCompId().matches("HOH")==true){
-					Molecule water = new Molecule();
-					water.addToAtoms(atoms[i]);
-					water.setFileName(item.getDatablockName() + ": H2O");
-					molecules.add(water);
-					waterCounter++;
-				} else{
+					Molecule solvent = new Molecule();
+					solvent.addToAtoms(atoms[i]);
+					solvent.setFileName(item.getDatablockName() + ": " + atoms[i].getLabelCompId());
+					molecules.add(solvent);
+					solventCounter++;
+				}else if(atoms[i].getLabelCompId()==atoms[i].getElement()){
+					Molecule singleAtom = new Molecule();
+					singleAtom.setFileName(item.getDatablockName() + ": " + atoms[i].getLabelCompId());
+					singleAtom.addToAtoms(atoms[i]);
+					molecules.add(singleAtom);
+					println atoms[i];
+					singleAtomCounter++;
+				} 
+				else{
 					Molecule mole = new Molecule()
 					mole.setFileName(item.getDatablockName()+ " " + atoms[i].getLabelCompId());
 					int j = i;
-					while(atoms[j].getLabelCompId()==atoms[i].getLabelCompId()){
-						mole.addToAtoms(atoms[j]);
-						mole.atomCount++;
-						j++;
+						while(atoms[j].getLabelCompId()==atoms[i].getLabelCompId()){
+							mole.addToAtoms(atoms[j]);
+							mole.atomCount++;
+							j++;
+							if(atoms[j]==null){
+								break;
+						    }
 					}
 					i = j-1;
 					molecules.add(mole);
-					println "Number of non-Proteinatoms:" + mole.atomCount
+					println ("Number of non-Proteinatoms:" + mole.atomCount);
 				}
+				//----------------------------------------------------------------------------------------------------------
 			}
+			//############################################################################################################
+			
 		}
-		println "Number of Watermolecules: " + waterCounter
+		//end of for-loop
+		println ("Number of single Atoms: " + singleAtomCounter);
+		println ("Number of Solventmolecules: " + solventCounter);
 		return molecules;
 	}
 }
