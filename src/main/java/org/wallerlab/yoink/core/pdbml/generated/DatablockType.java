@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.wallerlab.yoink.Interfaces.DatablockTypeInterface;
+
 
 /**
  * <p>Java class for datablockType complex type.
@@ -409,7 +411,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "datablockType", propOrder = {
 
 })
-public class DatablockType {
+public class DatablockType implements DatablockTypeInterface{
 
     @XmlElement(name = "atom_siteCategory")
     protected AtomSiteType atomSiteCategory;

@@ -100,4 +100,5 @@ class MoleculeTranslator {
 		println ("Number of Solventmolecules: " + solventCounter);
 		return molecules;
 	}
+	
 }

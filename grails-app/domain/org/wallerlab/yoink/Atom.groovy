@@ -19,9 +19,7 @@ class Atom {
 		groupPDBx (blank:false);
 		chain (blank:false);
 		labelCompId (blank:false);
-		x (blank:false);
-		y (blank:false);
-		z (blank:false);
+
     }
 
 	@Override
